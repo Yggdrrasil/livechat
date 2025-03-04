@@ -1,16 +1,30 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const cors = require('cors'); // Importa el paquete cors
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+
+// Configura CORS
+app.use(cors({
+  origin: 'http://localhost:3000', // Permite solicitudes desde este origen
+  methods: ['GET', 'POST'], // Métodos permitidos
+}));
+
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000', // Permite conexiones WebSocket desde este origen
+    methods: ['GET', 'POST'],
+  },
+});
 
 io.on('connection', (socket) => {
   console.log('Usuario conectado:', socket.id);
 
   socket.on('sendMessage', (message) => {
-    io.emit('newMessage', message);
+    console.log('Mensaje recibido:', message);
+    io.emit('newMessage', message); // Reenviar el mensaje a todos los clientes test
   });
 
   socket.on('disconnect', () => {
