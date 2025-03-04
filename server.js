@@ -32,6 +32,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(4000, () => {
-  console.log('Servidor de WebSockets escuchando en el puerto 4000');
+server.listen(10000, () => {
+  console.log('Servidor de WebSockets escuchando en el puerto 10000');
 });
