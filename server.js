@@ -8,13 +8,13 @@ const server = http.createServer(app);
 
 // Configura CORS
 app.use(cors({
-  origin: 'http://localhost:3000', // Permite solicitudes desde este origen
+  origin: 'https://chat-app-chi-pearl-14.vercel.app/', // Permite solicitudes desde este origen
   methods: ['GET', 'POST'], // Métodos permitidos
 }));
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000', // Permite conexiones WebSocket desde este origen
+    origin: 'https://chat-app-chi-pearl-14.vercel.app/', // Permite conexiones WebSocket desde este origen
     methods: ['GET', 'POST'],
   },
 });
@@ -32,6 +32,7 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(10000, () => {
-  console.log('Servidor de WebSockets escuchando en el puerto 10000');
+const PORT = process.env.PORT || 10000; // Usa el puerto de Render o 10000 localmente
+server.listen(PORT, () => {
+  console.log(`Servidor de WebSockets escuchando en el puerto ${PORT}`);
 });
