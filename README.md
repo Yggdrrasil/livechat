@@ -1,6 +1,7 @@
 # Chat en Tiempo Real con React, Redux y WebSockets
 
-¡Bienvenido al proyecto de Chat en Tiempo Real! Esta es una aplicación web que permite a los usuarios enviar y recibir mensajes en tiempo real utilizando WebSockets. Está construida con React, Redux y Node.js.
+ Esta es una aplicación que web que permite a los usuarios enviar y recibir mensajes en tiempo real utilizando WebSockets. Está construida con React, Redux y Node.js.
+ He querido crear esta aplicacion para practicar el uso de estas tecnologias.
 
 ## Capturas de Pantalla
 
