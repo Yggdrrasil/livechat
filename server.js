@@ -8,13 +8,13 @@ const server = http.createServer(app);
 
 // Configura CORS
 app.use(cors({
-  origin: 'https://chat-app-chi-pearl-14.vercel.app/', // Permite solicitudes desde este origen
+  origin: 'https://chat-app-chi-pearl-14.vercel.app', // Permite solicitudes desde este origen
   methods: ['GET', 'POST'], // Métodos permitidos
 }));
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://chat-app-chi-pearl-14.vercel.app/', // Permite conexiones WebSocket desde este origen
+    origin: 'https://chat-app-chi-pearl-14.vercel.app', // Permite conexiones WebSocket desde este origen
     methods: ['GET', 'POST'],
   },
 });
@@ -22,9 +22,14 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('Usuario conectado:', socket.id);
 
-  socket.on('sendMessage', (message) => {
-    console.log('Mensaje recibido:', message);
-    io.emit('newMessage', message); // Reenviar el mensaje a todos los clientes test
+  // Escuchar el evento 'sendMessage'
+  socket.on('sendMessage', (data) => {
+    const { message, username } = data; // Recibe el mensaje y el nombre del usuario
+    const timestamp = new Date().toLocaleTimeString(); // Añade la hora actual
+    console.log(`Mensaje recibido de ${username} a las ${timestamp}:`, message);
+
+    // Reenviar el mensaje, el nombre del usuario y la hora a todos los clientes
+    io.emit('newMessage', { username, message, timestamp });
   });
 
   socket.on('disconnect', () => {
